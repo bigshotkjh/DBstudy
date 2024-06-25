@@ -13,13 +13,24 @@
   외래키
   1. FOREIGN KEY
   2. 다른 테이블을 참조할 때 사용하는 키
-  3. 중복 가능하고 NULL 값을 가질 수 있다.
+  3. 중복 가능하고 NULL 값을 가질 수 있다.(ex. PARENT KEY 값이 삭제되면 CHILD KEY 값을 NULL 처리)
   4. 참조 무결성을 가져야 한다.
     1) 참조하는 테이블의 데이터(도메인)만 가질 수 있다.
     2) 옵션
       (1) ON DELETE SET NULL : PARENT KEY 값이 삭제되면 CHILD KEY 값을 NULL 처리한다.
       (2) ON DELETE CASCADE  : PARENT KEY 값이 삭제되면 CHILD KEY 값을 가진 ROW 전체를 삭제한다.
+
+      ex)
+      -- 수강신청
+      CREATE TABLE enroll_t (
+          enr_no NUMBER NOT NULL PRIMARY KEY
+        , stu_no NUMBER REFERENCES student_t(stu_no) ON DELETE SET NULL
+        , subj_no NUMBER REFERENCES subject_t(subj_no) ON DELETE CASCADE
+      );
 */
+---@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+---@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+---@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 /*
   분식집 메뉴  분식집 주문내역
   (부모)       (자식)
